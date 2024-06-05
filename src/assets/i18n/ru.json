@@ -1,0 +1,15 @@
+{
+    "title": "Погода",
+    "temperature": "температура",
+    "feel": "ощущается",
+    "humidity": "влажность",
+    "pressure": "давление",
+    "pressureUnits": "гПа",
+    "wind": "ветер",
+    "windUnits": "км/ч",
+    "searchPlaceholder": "Введите ваш город",
+    "search": "поиск",
+    "language": "язык",
+    "English": "Английский",
+    "Russian": "Русский"
+}

@@ -1,0 +1,90 @@
+.header {
+    padding-top: 20px;
+    height: 300px;
+}
+
+.header-background {
+    margin: 0 auto;
+    width: 70%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 25px;
+    background-color: rgba(165, 230, 255, 0.6);
+}
+
+.header-info {
+    height: 200px;
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.7vw;
+}
+
+.logo__img {
+    height: 50px;
+    width: 50px;
+}
+
+.location {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.info {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.current-info {
+    width: 70%;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.hourly__cards {
+    display: flex;
+    flex-direction: row;
+    height: 20%;
+}
+
+.hourly__card {
+    height: 200px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.daily__cards {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.daily__card {
+    height: 100px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.background {
+    height: 100%;
+    background: url(/assets/img/backgrounds/default.jpg) no-repeat;
+    background-size: cover;
+}

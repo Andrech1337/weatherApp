@@ -1,0 +1,15 @@
+{
+    "title": "Weather",
+    "temperature": "temperature",
+    "feel": "feel",
+    "humidity": "humidity",
+    "pressure": "pressure",
+    "pressureUnits": "hPa",
+    "wind": "wind",
+    "windUnits": "Km/h",
+    "searchPlaceholder": "Enter your city",
+    "search": "search",
+    "language": "language",
+    "English": "English",
+    "Russian": "Russian"
+}
