@@ -1,4 +1,5 @@
-<div class="background">
+<div class="background"
+  [ngStyle]="{'background-image': 'url(' + (days?.[currentDayIndex.value]?.weatherCode?.[currentHourIndex.value * 3] | backgroundSrc) + ')'}">
   <section class="header">
     <div class="header-background">
       <div class="header-info">
@@ -10,10 +11,10 @@
           <span class="city ">{{city}}</span>
           <span class="country ">{{country}}</span>
           <mat-form-field subscriptSizing="dynamic">
-            <input [(ngModel)]="inputCity" (keyup.enter)="getWeatherInfo(inputCity)" matInput
+            <input [(ngModel)]="inputCity" (keyup.enter)="getCityInfo(inputCity)" matInput
               [placeholder]="t('searchPlaceholder')">
           </mat-form-field>
-          <button mat-stroked-button (click)="getWeatherInfo(inputCity)">{{ t('search') }}</button>
+          <button mat-stroked-button (click)="getCityInfo(inputCity)">{{ t('search') }}</button>
         </div>
         <button mat-button [matMenuTriggerFor]="language" *transloco="let t">{{t('language')}}</button>
         <mat-menu #language="matMenu">
@@ -42,7 +43,7 @@
   <section class="info">
     <mat-button-toggle-group class="hourly__cards" [hideSingleSelectionIndicator]=true [formControl]="currentHourIndex">
       @for (temp of days?.[currentDayIndex.value]?.temperature3hour; track $index){
-      <mat-button-toggle [value]=$index>
+      <mat-button-toggle class="hourly__card-wrap" [value]=$index>
         <div class="hourly__card">
           <span class="hourly__card__time">{{$index * 3 + ':00'}}</span>
           <span class="hourly__card__temperature">{{temp + ' °C'}}</span>
@@ -54,7 +55,7 @@
     </mat-button-toggle-group>
     <mat-button-toggle-group class="daily__cards" [hideSingleSelectionIndicator]=true [formControl]="currentDayIndex">
       @for (day of days; track $index){
-      <mat-button-toggle [value]=$index>
+      <mat-button-toggle class="daily__card-wrap " [value]=$index>
         <div class="daily__card">
           <span class="daily__card__time">{{day.date[0] | date: "ccc, d MMM" : "" : locale}}</span>
           <span class="daily__card__temperature">{{day.avgTemperature + ' °C'}}</span>

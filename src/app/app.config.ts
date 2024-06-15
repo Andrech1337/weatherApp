@@ -1,6 +1,6 @@
 import { ApplicationConfig } from '@angular/core';
-import { HttpClientModule, provideHttpClient } from '@angular/common/http';
-import { importProvidersFrom, isDevMode } from '@angular/core';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -11,15 +11,16 @@ import { provideTransloco } from '@jsverse/transloco';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    importProvidersFrom(HttpClientModule), provideAnimationsAsync(), provideHttpClient(), provideTransloco({
-        config: { 
-          availableLangs: ['en', 'ru'],
-          defaultLang: 'en',
-          // Remove this option if your application doesn't support changing language in runtime.
-          reRenderOnLangChange: true,
-          prodMode: !isDevMode(),
-        },
-        loader: TranslocoHttpLoader
-      })
+    provideHttpClient(withInterceptorsFromDi()),
+    provideAnimationsAsync(),
+    provideTransloco({
+      config: {
+        availableLangs: ['en', 'ru'],
+        defaultLang: 'en',
+        reRenderOnLangChange: true,
+        prodMode: !isDevMode(),
+      },
+      loader: TranslocoHttpLoader
+    })
   ]
 };

@@ -11,6 +11,8 @@ import { DatePipe } from '@angular/common';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco'
 import { MatMenuModule } from '@angular/material/menu';
 import { IconScrPipe } from './icon-scr-pipe.pipe';
+import { BackgroundSrcPipe } from './background-src.pipe';
+import { NgStyle } from '@angular/common';
 
 
 export interface DayInterface {
@@ -36,8 +38,9 @@ export interface DayInterface {
     FormsModule,
     MatFormFieldModule, MatInputModule, MatSelectModule, MatMenuModule, MatButtonModule,
     DatePipe,
-    IconScrPipe,
+    IconScrPipe, BackgroundSrcPipe,
     TranslocoModule,
+    NgStyle,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -58,7 +61,7 @@ export class AppComponent {
   })
   locale: string = "en-US"
   localeShort: string = this.locale.slice(0, 2)
-  city: string = 'Minsk';
+  city: string = '';
   inputCity: string = "";
   currentWeater = {
     temperature: 0,
@@ -77,6 +80,10 @@ export class AppComponent {
     }, 1000);
   }
 
+  currentHour: number = 0;
+
+
+
   offsetPipe(seconds: number) {
     const absSeconds = Math.abs(seconds);
     const hours = Math.floor(absSeconds / 3600);
@@ -88,29 +95,45 @@ export class AppComponent {
   }
 
 
-
   country: string = 'country'
   weatherdata: any;
   citydata: any;
   timezone: number = 0;
   title: string = 'weather';
 
+  ipInfo: any;
 
-  getWeatherInfo(city: string) {
+  getUserCity() {
+    this.http.get('https://ipinfo.io/json?token=990e7d0d012bfe').subscribe((ipInfo: any) => {
+      this.ipInfo = ipInfo;
+      this.city = this.ipInfo.city;
+      this.getCityInfo(this.city);
+    })
+  }
+
+  getCityInfo(city: string) {
     this.inputCity = "";
     this.http.get(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=e4ec2b573e49d570c90539077f2ebaff`).subscribe((citydata: any) => {
       this.citydata = citydata;
       this.city = this.citydata[0].local_names[this.localeShort]
       this.country = citydata[0].country
-      this.http.get(`https://api.open-meteo.com/v1/forecast?latitude=${citydata[0].lat}&longitude=${citydata[0].lon}&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,surface_pressure,wind_speed_10m&timezone=auto`).subscribe((weatherdata: any) => {
-        this.weatherdata = weatherdata;
-        this.formatDays(weatherdata.hourly);
-        this.offset = this.offsetPipe(weatherdata.utc_offset_seconds);
-      });
+      this.getWeaterData()
     });
   }
+
+  getWeaterData() {
+    this.http.get(`https://api.open-meteo.com/v1/forecast?latitude=${this.citydata[0].lat}&longitude=${this.citydata[0].lon}&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,surface_pressure,wind_speed_10m&timezone=auto`).subscribe((weatherdata: any) => {
+      this.weatherdata = weatherdata;
+      this.formatDays(weatherdata.hourly);
+      this.offset = this.offsetPipe(weatherdata.utc_offset_seconds);
+      this.currentHour = new Date(this.time.getTime() + this.weatherdata.utc_offset_seconds * 1000).getUTCHours();
+      this.currentHourIndex.setValue(Math.floor(this.currentHour / 3));
+    });
+
+  }
+
   ngOnInit() {
-    this.getWeatherInfo(this.city)
+    this.getUserCity();
     this.startTimer();
   }
   days?: DayInterface[] = [];
@@ -176,20 +199,13 @@ export class AppComponent {
   }
 
 
-  weatherCodeToImg(code: number) {
-    switch (code) {
-      case 1: return "one"
-      case 2: return "two"
-      case 3: return "three"
-      case 4: return "four"
-      default: return "default"
-    }
-  }
-
-
   log() {
     console.log(this.citydata);
     console.log(this.weatherdata);
+    console.log(this.currentHourIndex.value);
+    console.log(this.currentDayIndex.value);
     console.log(this.days);
+    console.log(this.days?.[this.currentDayIndex.value]?.weatherCode);
+    console.log(this.days?.[this.currentDayIndex.value]?.weatherCode?.[this.currentHourIndex.value * 3]);
   };
 }

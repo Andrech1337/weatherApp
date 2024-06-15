@@ -1,3 +1,30 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$my-theme: mat.define-theme((color: (theme-type: light,
+                primary: mat.$azure-palette,
+            ),
+
+        ),
+    );
+
+html {
+    // Emit theme-dependent styles for common features used across multiple components.
+
+    // Emit styles for MatButton based on `$my-theme`. Because the configuration
+    // passed to `define-theme` omits typography, `button-theme` will not
+    // emit any typography styles.
+    @include mat.button-toggle-color($my-theme);
+    // @include mat.button-toggle-color ($my-theme, $color-variant: primary);
+
+
+    // Include the theme mixins for other components you use here.
+}
+
+
+
+
 .roboto-thin {
     font-family: "Roboto", sans-serif;
     font-weight: 100;

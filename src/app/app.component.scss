@@ -1,3 +1,23 @@
+@mixin respond-to($media) {
+    @if $media =='mobile ' {
+        @media (max-width: 480px) {
+            @content;
+        }
+    }
+
+    @else if $media =='tablet' {
+        @media (max-width: 900px) {
+            @content;
+        }
+    }
+
+    @else if $media =='laptop' {
+        @media (max-width: 1300px) {
+            @content;
+        }
+    }
+}
+
 .header {
     padding-top: 20px;
     height: 300px;
@@ -16,7 +36,7 @@
 
 .header-info {
     height: 200px;
-    width: 70%;
+    width: 90%;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
@@ -50,7 +70,7 @@
 }
 
 .current-info {
-    width: 70%;
+    width: 90%;
     height: 100px;
     display: flex;
     flex-direction: row;
@@ -63,6 +83,10 @@
     height: 20%;
 }
 
+.hourly__card-wrap {
+    background-color: rgb(117, 185, 214, 0.7);
+}
+
 .hourly__card {
     height: 200px;
     width: 100px;
@@ -71,9 +95,12 @@
 }
 
 .daily__cards {
-    margin: 0 auto;
     display: flex;
     flex-direction: row;
+}
+
+.daily__card-wrap {
+    background-color: rgb(117, 185, 214, 0.7);
 }
 
 .daily__card {
@@ -85,6 +112,6 @@
 
 .background {
     height: 100%;
-    background: url(/assets/img/backgrounds/default.jpg) no-repeat;
     background-size: cover;
+    background-position: center;
 }
