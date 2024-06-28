@@ -12,7 +12,7 @@
     }
 
     @else if $media =='laptop' {
-        @media (max-width: 1300px) {
+        @media (max-width: 1250px) {
             @content;
         }
     }
@@ -21,6 +21,11 @@
 .header {
     padding-top: 20px;
     height: 300px;
+
+    @include respond-to('tablet') {
+        padding-top: 0;
+        height: 150px;
+    }
 }
 
 .header-background {
@@ -32,6 +37,11 @@
     align-items: center;
     border-radius: 25px;
     background-color: rgba(165, 230, 255, 0.6);
+
+    @include respond-to('laptop') {
+        width: 100%;
+        border-radius: 0;
+    }
 }
 
 .header-info {
@@ -42,6 +52,12 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    @include respond-to('tablet') {
+        height: 100%;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
 }
 
 .logo {
@@ -61,6 +77,18 @@
     align-items: center;
 }
 
+.search {
+    @include respond-to('tablet') {
+        display: none;
+    }
+}
+
+.language {
+    @include respond-to('tablet') {
+        display: none;
+    }
+}
+
 .info {
     width: 70%;
     margin: 0 auto;
@@ -75,6 +103,12 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
+    @include respond-to('tablet') {
+        gap: 10px;
+        height: 7vw;
+        align-items: center;
+    }
 }
 
 .hourly__cards {
@@ -88,8 +122,10 @@
 }
 
 .hourly__card {
-    height: 200px;
-    width: 100px;
+    height: 110%;
+    width: 7vw;
+    max-width: 90px;
+    max-height: 200px;
     display: flex;
     flex-direction: column;
 }
@@ -105,10 +141,21 @@
 
 .daily__card {
     height: 100px;
-    width: 100px;
+    width: 6vw;
     display: flex;
     flex-direction: column;
+    white-space: wrap;
+
+    @include respond-to('laptop') {
+        width: 9vw;
+    }
+
+    @include respond-to('tablet') {
+        height: 200px;
+    }
+
 }
+
 
 .background {
     height: 100%;

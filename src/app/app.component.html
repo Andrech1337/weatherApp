@@ -10,13 +10,13 @@
         <div class="location" *transloco="let t">
           <span class="city ">{{city}}</span>
           <span class="country ">{{country}}</span>
-          <mat-form-field subscriptSizing="dynamic">
+          <mat-form-field class="search" subscriptSizing="dynamic">
             <input [(ngModel)]="inputCity" (keyup.enter)="getCityInfo(inputCity)" matInput
               [placeholder]="t('searchPlaceholder')">
           </mat-form-field>
-          <button mat-stroked-button (click)="getCityInfo(inputCity)">{{ t('search') }}</button>
+          <button class="search" mat-stroked-button (click)="getCityInfo(inputCity)">{{ t('search') }}</button>
         </div>
-        <button mat-button [matMenuTriggerFor]="language" *transloco="let t">{{t('language')}}</button>
+        <button class="language" mat-button [matMenuTriggerFor]="language" *transloco="let t">{{t('language')}}</button>
         <mat-menu #language="matMenu">
           <button mat-menu-item *transloco="let t" (click)="ru()">{{t('Russian')}}</button>
           <button mat-menu-item *transloco="let t" (click)="en()">{{t('English')}}</button>
@@ -27,16 +27,15 @@
       </div>
       <div class="current-info" *transloco="let t">
         <span class="current-info__temperature">{{t('temperature') + ' : ' +
-          days?.[currentDayIndex.value]?.temperature?.[currentHourIndex.value * 3] + '
-          °C'}}</span>
+          days?.[currentDayIndex.value]?.temperature?.[currentHourIndex.value * 3] + ' °C'}}</span>
         <span class="current-info__temperature-feel">{{t('feel') + ' : ' +
-          days?.[currentDayIndex.value]?.temperatureFeel?.[currentHourIndex.value * 3] + ' °C'}}</span>
+          days?.[currentDayIndex.value]?.temperatureFeel?.[currentHourIndex.value * 3] + ' °C'}}</span>
         <span class="current-info__humidity">{{t('humidity') +' : ' +
-          days?.[currentDayIndex.value]?.humidity?.[currentHourIndex.value * 3] + ' %'}}</span>
+          days?.[currentDayIndex.value]?.humidity?.[currentHourIndex.value * 3] + ' %'}}</span>
         <span class="current-info__pressure">{{t('pressure') +' : ' +
-          days?.[currentDayIndex.value]?.pressure?.[currentHourIndex.value * 3]+" " + t('pressureUnits')}}</span>
+          days?.[currentDayIndex.value]?.pressure?.[currentHourIndex.value * 3]+" " + t('pressureUnits')}}</span>
         <span class="current-info__visibility">{{t('wind') +' : ' +
-          days?.[currentDayIndex.value]?.wind?.[currentHourIndex.value * 3]+" " + t('windUnits')}}</span>
+          days?.[currentDayIndex.value]?.wind?.[currentHourIndex.value * 3]+" " + t('windUnits')}}</span>
       </div>
     </div>
   </section>
